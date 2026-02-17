@@ -23,20 +23,13 @@
       overflow-x: hidden;
       background: linear-gradient(135deg, #00c6ff, #ff00b8);
       background-size: 400% 400%;
-      animation: waveBackground 10s ease infinite; /* New wave animation */
+      animation: waveBackground 10s ease infinite;
     }
 
-    /* Smooth Wave Animation */
     @keyframes waveBackground {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* Hero Section */
@@ -53,37 +46,32 @@
       animation: fadeIn 1.5s ease-out forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
     .hero h1 {
       font-size: 5rem;
-      font-family: 'Press Start 2P', cursive; /* Anime style font */
+      font-family: 'Press Start 2P', cursive;
       text-transform: uppercase;
       margin-bottom: 20px;
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
       animation: moveText 5s ease-in-out infinite alternate;
+      background: linear-gradient(90deg, #ff00b8, #00fff0, #ff2b91);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       font-size: 1.5rem;
       margin-bottom: 30px;
-      font-family: 'Sora', sans-serif; /* Another anime-style font */
+      font-family: 'Sora', sans-serif;
       animation: moveText 5s ease-in-out infinite alternate;
+      text-shadow: 0 0 5px rgba(255,255,255,0.6);
     }
 
     @keyframes moveText {
-      0% {
-        transform: translateX(-5px); /* Move a little to the left */
-      }
-      50% {
-        transform: translateX(5px);  /* Move a little to the right */
-      }
-      100% {
-        transform: translateX(-5px); /* Back to the left */
-      }
+      0% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      100% { transform: translateX(-5px); }
     }
 
     /* Navigation Bar */
@@ -99,119 +87,115 @@
       align-items: center;
       background-color: rgba(34, 34, 34, 0.85);
       backdrop-filter: blur(10px);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
       border-bottom: 1px solid #333;
       border-radius: 15px;
       border: 3px solid #5a2a9f;
       transition: all 0.3s ease-in-out;
     }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-
-    nav ul li {
-      margin: 0 30px;
-    }
+    nav ul { display: flex; list-style: none; }
+    nav ul li { margin: 0 30px; }
 
     nav ul li a {
       text-decoration: none;
       color: #fff;
       font-size: 1.5rem;
-      font-family: 'Russo One', sans-serif; /* Bold, futuristic anime font */
+      font-family: 'Russo One', sans-serif;
       text-transform: uppercase;
       letter-spacing: 2px;
       padding: 5px 10px;
       transition: all 0.3s ease;
+      text-shadow: 0 0 10px #fff;
     }
 
     nav ul li a:hover {
+      text-shadow: 0 0 20px #ff00b8, 0 0 40px #ff2b91;
       color: #ff00b8;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-      transform: scale(1.1) translateY(-5px); /* Scale effect */
+      transform: scale(1.1) translateY(-5px);
     }
 
-    /* Modal for Buying Script */
+    /* Modals */
     .modal-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background-color: rgba(0,0,0,0.7);
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      opacity: 0;
+      opacity:0;
       animation: fadeInModal 0.5s ease-out forwards;
     }
 
-    @keyframes fadeInModal {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    @keyframes fadeInModal { from {opacity:0;} to {opacity:1;} }
 
     .modal-content {
-      background-color: #111;
-      color: #fff;
-      padding: 20px;
-      max-width: 600px;
-      width: 90%;
-      border-radius: 8px;
-      text-align: center;
+      background-color: rgba(17,17,17,0.95);
+      color:#fff;
+      padding:20px;
+      max-width:600px;
+      width:90%;
+      border-radius:12px;
+      text-align:center;
       border: 3px solid #ff00b8;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      box-shadow:0 0 30px #ff00b8,0 0 60px #ff2b91;
+      backdrop-filter: blur(12px) saturate(180%);
     }
 
     .modal-content h3 {
-      margin-bottom: 15px;
-      font-size: 2rem;
-      color: #ff00b8;
+      margin-bottom:15px;
+      font-size:2rem;
+      color:#ff00b8;
     }
 
     .modal-content p {
-      margin-bottom: 20px;
-      font-size: 1.2rem;
-      color: #ddd;
+      margin-bottom:20px;
+      font-size:1.2rem;
+      color:#ddd;
     }
 
     .modal-content ul {
-      list-style: none;
-      text-align: left;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
+      list-style:none;
+      text-align:left;
+      margin-bottom:20px;
+      font-size:1.2rem;
     }
 
+    /* Buttons */
     .modal-content .close-btn {
       background-color: #5a2a9f;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      cursor: pointer;
+      color:white;
+      border:none;
+      padding:12px 25px;
+      font-size:1.2rem;
+      border-radius:5px;
+      cursor:pointer;
       transition: background-color 0.3s ease;
     }
 
-    .modal-content .close-btn:hover {
-      background-color: #7b3fc5;
-    }
+    .modal-content .close-btn:hover { background-color:#7b3fc5; }
 
     .modal-content .discord-btn {
-      background-color: #ff00b8;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1.3rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      background: linear-gradient(90deg,#ff00b8,#ff2b91);
+      border:none;
+      color:#fff;
+      font-weight:bold;
+      padding:12px 25px;
+      font-size:1.3rem;
+      border-radius:5px;
+      cursor:pointer;
+      margin-bottom:10px;
+      box-shadow: 0 0 10px #ff00b8,0 0 20px #ff2b91,0 0 40px #ff00b8;
+      transition: all 0.3s ease;
     }
 
     .modal-content .discord-btn:hover {
-      background-color: #ff2b91;
+      box-shadow: 0 0 20px #ff00b8,0 0 40px #ff2b91,0 0 80px #ff00b8;
+      transform: scale(1.1) rotate(-2deg);
     }
 
     /* Footer */
@@ -222,13 +206,12 @@
       font-size: 1rem;
     }
 
-    footer p {
-      color: #888;
-    }
+    footer p { color:#888; }
 
   </style>
 </head>
 <body>
+
   <!-- Navigation Bar -->
   <nav>
     <ul>
@@ -247,26 +230,26 @@
     </div>
   </section>
 
-  <!-- Modal for Discord -->
+  <!-- Modals -->
   <div id="discord-modal" class="modal-overlay">
     <div class="modal-content">
       <h3>Join Our Discord Community!</h3>
       <p>Come and meet fellow scripters, share your experiences, and get support on your journey. The SkizzenHub Discord is a place where creativity meets collaboration! 🚀</p>
-      <button class="discord-btn" onclick="window.open('https://discord.gg/YsAvWbAS', '_blank')">Join Our Discord</button>
+      <button class="discord-btn" onclick="window.open('https://discord.gg/YsAvWbAS','_blank')">Join Our Discord</button>
       <button class="close-btn" id="close-discord-modal">Close</button>
     </div>
   </div>
 
-  <!-- Modal for Our Friends -->
   <div id="friends-modal" class="modal-overlay">
     <div class="modal-content">
       <h3>Check Out Our Good Friend Ronixx!</h3>
       <p>Not only do we have SkizzenHub, but our good friend Ronixx is also making some amazing scripts! 💻 If you're looking for even more options to enhance your experience, you should definitely check out his work. He’s known for creating high-quality, powerful scripts that can take your gameplay to the next level.</p>
+      <!-- Added Button -->
+      <button class="discord-btn" onclick="window.open('https://discord.gg/7MtYZ4pS','_blank')">Join Friends Discord</button>
       <button class="close-btn" id="close-friends-modal">Close</button>
     </div>
   </div>
 
-  <!-- Modal for Features -->
   <div id="features-modal" class="modal-overlay">
     <div class="modal-content">
       <h3>SkizzenHub Features</h3>
@@ -282,32 +265,17 @@
 
   <script>
     // Open Modals
-    document.getElementById('discord-btn').addEventListener('click', function() {
-      document.getElementById('discord-modal').style.display = 'flex';
-    });
-    document.getElementById('friends-btn').addEventListener('click', function() {
-      document.getElementById('friends-modal').style.display = 'flex';
-    });
-    document.getElementById('features-btn').addEventListener('click', function() {
-      document.getElementById('features-modal').style.display = 'flex';
-    });
-    document.getElementById('buy-script-btn').addEventListener('click', function() {
-      document.getElementById('buy-script-modal').style.display = 'flex';
-    });
+    document.getElementById('discord-btn').addEventListener('click',()=>{document.getElementById('discord-modal').style.display='flex';});
+    document.getElementById('friends-btn').addEventListener('click',()=>{document.getElementById('friends-modal').style.display='flex';});
+    document.getElementById('features-btn').addEventListener('click',()=>{document.getElementById('features-modal').style.display='flex';});
+    document.getElementById('buy-script-btn').addEventListener('click',()=>{document.getElementById('buy-script-modal').style.display='flex';});
 
     // Close Modals
-    document.getElementById('close-discord-modal').addEventListener('click', function() {
-      document.getElementById('discord-modal').style.display = 'none';
-    });
-    document.getElementById('close-friends-modal').addEventListener('click', function() {
-      document.getElementById('friends-modal').style.display = 'none';
-    });
-    document.getElementById('close-features-modal').addEventListener('click', function() {
-      document.getElementById('features-modal').style.display = 'none';
-    });
-    document.getElementById('close-buy-script-modal').addEventListener('click', function() {
-      document.getElementById('buy-script-modal').style.display = 'none';
-    });
+    document.getElementById('close-discord-modal').addEventListener('click',()=>{document.getElementById('discord-modal').style.display='none';});
+    document.getElementById('close-friends-modal').addEventListener('click',()=>{document.getElementById('friends-modal').style.display='none';});
+    document.getElementById('close-features-modal').addEventListener('click',()=>{document.getElementById('features-modal').style.display='none';});
+    document.getElementById('close-buy-script-modal')?.addEventListener('click',()=>{document.getElementById('buy-script-modal').style.display='none';});
   </script>
+
 </body>
 </html>

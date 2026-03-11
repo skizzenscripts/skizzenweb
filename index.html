@@ -4,278 +4,640 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SkizzenHub - Best SAB Script</title>
-  <!-- Adding anime-style fonts from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Sora:wght@500&family=Russo+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P:wght@400&family=Spline+Sans+Mono:wght@400;500;700&family=Russo+One&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    /* General Reset */
+    :root {
+      --primary-glow: linear-gradient(45deg, #ff00b8, #00f5ff, #ff2b91, #00ff88);
+      --secondary-glow: linear-gradient(45deg, #ff6b9d, #4ecdc4, #45b7d1, #96ceb4);
+      --dark-bg: #0a0a0a;
+      --glass-bg: rgba(255,255,255,0.05);
+      --neon-pink: #ff00b8;
+      --neon-cyan: #00f5ff;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Body & Layout */
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Spline Sans Mono', monospace;
       color: #fff;
-      line-height: 1.6;
       overflow-x: hidden;
-      background: linear-gradient(135deg, #00c6ff, #ff00b8);
-      background-size: 400% 400%;
-      animation: waveBackground 10s ease infinite;
+      background: var(--dark-bg);
+      position: relative;
     }
 
-    @keyframes waveBackground {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Fixed Background - No rotation */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120,119,198,0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.4) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120,219,255,0.4) 0%, transparent 50%);
+      z-index: -2;
+      opacity: 0.6;
+    }
+
+    /* Floating Particles - Fixed rotation issue */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, var(--neon-pink) 0%, var(--neon-cyan) 70%, transparent 100%);
+      border-radius: 50%;
+      animation: float 25s linear infinite;
+      opacity: 0.8;
+      box-shadow: 0 0 20px var(--neon-pink);
+    }
+
+    .particle:nth-child(1) { 
+      width: 60px; height: 60px; 
+      left: 10%; animation-delay: 0s; 
+      animation-duration: 30s;
+    }
+    .particle:nth-child(2) { 
+      width: 40px; height: 40px; 
+      left: 25%; animation-delay: -7s; 
+      animation-duration: 35s;
+    }
+    .particle:nth-child(3) { 
+      width: 50px; height: 50px; 
+      left: 70%; animation-delay: -12s; 
+      animation-duration: 28s;
+    }
+    .particle:nth-child(4) { 
+      width: 30px; height: 30px; 
+      left: 85%; animation-delay: -18s; 
+      animation-duration: 32s;
+    }
+    .particle:nth-child(5) { 
+      width: 45px; height: 45px; 
+      left: 45%; animation-delay: -22s; 
+      animation-duration: 33s;
+    }
+
+    @keyframes float {
+      0% { 
+        transform: translateY(100vh) scale(0) rotate(0deg); 
+        opacity: 0; 
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { 
+        transform: translateY(-100px) scale(1) rotate(180deg); 
+        opacity: 0; 
+      }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 40px;
+      z-index: 1000;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      box-shadow: 
+        0 8px 32px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+      display: flex;
+      gap: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--primary-glow);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+
+    nav a:hover::before {
+      left: 0;
+    }
+
+    nav a:hover {
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 
+        0 15px 35px rgba(255,0,184,0.4),
+        0 0 20px rgba(0,245,255,0.3);
     }
 
     /* Hero Section */
     .hero {
       height: 100vh;
-      background: url('https://via.placeholder.com/1500x800/ff00b8/ffffff?text=Anime+Background') no-repeat center center;
-      background-size: cover;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      margin-top: 100px;
-      opacity: 0;
-      animation: fadeIn 1.5s ease-out forwards;
+      padding: 0 20px;
+      position: relative;
     }
 
-    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-
     .hero h1 {
-      font-size: 5rem;
       font-family: 'Press Start 2P', cursive;
+      font-size: clamp(3rem, 8vw, 6rem);
       text-transform: uppercase;
       margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
-      animation: moveText 5s ease-in-out infinite alternate;
-      background: linear-gradient(90deg, #ff00b8, #00fff0, #ff2b91);
+      background: var(--primary-glow);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px var(--neon-pink));
+      animation: glowPulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { filter: drop-shadow(0 0 20px var(--neon-pink)); }
+      to { filter: drop-shadow(0 0 40px var(--neon-cyan)); }
     }
 
     .hero p {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-      font-family: 'Sora', sans-serif;
-      animation: moveText 5s ease-in-out infinite alternate;
-      text-shadow: 0 0 5px rgba(255,255,255,0.6);
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-family: 'Spline Sans Mono', monospace;
+      max-width: 600px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      animation: slideUp 1s ease-out 0.5s both;
     }
 
-    @keyframes moveText {
-      0% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      100% { transform: translateX(-5px); }
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 0.9; }
     }
 
-    /* Navigation Bar */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 15px 40px;
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(34, 34, 34, 0.85);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      border-bottom: 1px solid #333;
-      border-radius: 15px;
-      border: 3px solid #5a2a9f;
-      transition: all 0.3s ease-in-out;
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--neon-cyan);
+      font-family: 'Orbitron', monospace;
+      animation: bounce 2s infinite;
     }
 
-    nav ul { display: flex; list-style: none; }
-    nav ul li { margin: 0 30px; }
-
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 1.5rem;
-      font-family: 'Russo One', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      padding: 5px 10px;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 10px #fff;
-    }
-
-    nav ul li a:hover {
-      text-shadow: 0 0 20px #ff00b8, 0 0 40px #ff2b91;
-      color: #ff00b8;
-      transform: scale(1.1) translateY(-5px);
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
     }
 
     /* Modals */
     .modal-overlay {
       display: none;
       position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background-color: rgba(0,0,0,0.7);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      opacity:0;
-      animation: fadeInModal 0.5s ease-out forwards;
+      opacity: 0;
+      animation: fadeInModal 0.4s ease-out forwards;
     }
 
-    @keyframes fadeInModal { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeInModal {
+      to { opacity: 1; }
+    }
 
     .modal-content {
-      background-color: rgba(17,17,17,0.95);
-      color:#fff;
-      padding:20px;
-      max-width:600px;
-      width:90%;
-      border-radius:12px;
-      text-align:center;
-      border: 3px solid #ff00b8;
-      box-shadow:0 0 30px #ff00b8,0 0 60px #ff2b91;
-      backdrop-filter: blur(12px) saturate(180%);
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(25px);
+      border: 2px solid transparent;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-shadow: 
+        0 25px 50px rgba(0,0,0,0.5),
+        0 0 50px rgba(255,0,184,0.3);
+      animation: modalSlideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      border-image: var(--primary-glow) 1;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    @keyframes modalSlideIn {
+      0% { transform: scale(0.7) rotateX(75deg); opacity: 0; }
+      100% { transform: scale(1) rotateX(0deg); opacity: 1; }
     }
 
     .modal-content h3 {
-      margin-bottom:15px;
-      font-size:2rem;
-      color:#ff00b8;
+      font-family: 'Orbitron', monospace;
+      font-size: 2rem;
+      font-weight: 900;
+      background: var(--primary-glow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 20px var(--neon-pink));
     }
 
     .modal-content p {
-      margin-bottom:20px;
-      font-size:1.2rem;
-      color:#ddd;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    /* Pricing Section */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .pricing-plan {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .pricing-plan h4 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.5rem;
+      color: var(--neon-cyan);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .pricing-item {
+      padding: 8px 0;
+      font-size: 1rem;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .pricing-item::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--neon-pink);
+      font-size: 1.2rem;
+      animation: sparkle 2s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
     }
 
     .modal-content ul {
-      list-style:none;
-      text-align:left;
-      margin-bottom:20px;
-      font-size:1.2rem;
+      list-style: none;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+
+    .modal-content li {
+      font-size: 1.1rem;
+      padding: 12px 0;
+      padding-left: 40px;
+      position: relative;
+      opacity: 0.95;
+    }
+
+    .modal-content li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      box-shadow: 0 0 15px currentColor;
     }
 
     /* Buttons */
-    .modal-content .close-btn {
-      background-color: #5a2a9f;
-      color:white;
-      border:none;
-      padding:12px 25px;
-      font-size:1.2rem;
-      border-radius:5px;
-      cursor:pointer;
-      transition: background-color 0.3s ease;
+    .btn {
+      background: var(--primary-glow);
+      border: none;
+      color: #000;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin: 8px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      box-shadow: 0 10px 30px rgba(255,0,184,0.4);
     }
 
-    .modal-content .close-btn:hover { background-color:#7b3fc5; }
-
-    .modal-content .discord-btn {
-      background: linear-gradient(90deg,#ff00b8,#ff2b91);
-      border:none;
-      color:#fff;
-      font-weight:bold;
-      padding:12px 25px;
-      font-size:1.3rem;
-      border-radius:5px;
-      cursor:pointer;
-      margin-bottom:10px;
-      box-shadow: 0 0 10px #ff00b8,0 0 20px #ff2b91,0 0 40px #ff00b8;
-      transition: all 0.3s ease;
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s;
     }
 
-    .modal-content .discord-btn:hover {
-      box-shadow: 0 0 20px #ff00b8,0 0 40px #ff2b91,0 0 80px #ff00b8;
-      transform: scale(1.1) rotate(-2deg);
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 
+        0 20px 40px rgba(255,0,184,0.6),
+        0 0 30px rgba(0,245,255,0.5);
+    }
+
+    /* Close Button */
+    .close-btn {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .close-btn:hover {
+      background: rgba(255,255,255,0.2);
+      color: #000;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 10px 20px;
+        gap: 5px;
+      }
+      
+      nav a {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+      
+      .modal-content {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
     }
 
     /* Footer */
     footer {
-      padding: 20px;
-      background-color: #111;
+      padding: 40px 20px;
       text-align: center;
-      font-size: 1rem;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    footer p { color:#888; }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
 
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 15px 30px rgba(255,0,184,0.5);
+    }
   </style>
 </head>
 <body>
+  <!-- Fixed Particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation -->
   <nav>
-    <ul>
-      <li><a href="#" id="discord-btn">Discord</a></li>
-      <li><a href="#" id="friends-btn">Our Friends</a></li>
-      <li><a href="#" id="features-btn">Features</a></li>
-      <li><a href="#" id="buy-script-btn" class="cta-button">Buy Script</a></li>
-    </ul>
+    <a href="#" id="discord-btn"><i class="fab fa-discord"></i> Discord</a>
+    <a href="#" id="friends-btn"><i class="fas fa-users"></i> Friends</a>
+    <a href="#" id="features-btn"><i class="fas fa-rocket"></i> Features</a>
+    <a href="#" id="buy-script-btn" class="btn">Buy Script</a>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="container">
-      <h1>Welcome to SkizzenHub</h1>
-      <p>The best script to use for Insta-steal brainrots from these kiddos😈</p>
-    </div>
+    <h1>SkizzenHub</h1>
+    <p>Best script for Steal a brainrot</p>
+    <div class="scroll-indicator">↓ Scroll ↓</div>
   </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 SkizzenHub. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-discord"></i></a>
+    </div>
+  </footer>
 
   <!-- Modals -->
   <div id="discord-modal" class="modal-overlay">
     <div class="modal-content">
-      <h3>Join Our Discord Community!</h3>
-      <p>Come and meet fellow scripters, share your experiences, and get support on your journey. The SkizzenHub Discord is a place where creativity meets collaboration! 🚀</p>
-      <button class="discord-btn" onclick="window.open('https://discord.gg/YsAvWbAS','_blank')">Join Our Discord</button>
-      <button class="close-btn" id="close-discord-modal">Close</button>
+      <h3><i class="fab fa-discord"></i> Join Our Discord!</h3>
+      <p>Meet fellow scripters, share experiences and get support. SkizzenHub Discord is where creativity meets collaboration! 🚀</p>
+      <button class="btn" onclick="window.open('https://discord.gg/BQ6c3RSa','_blank')">
+        <i class="fab fa-discord"></i> Join Discord
+      </button>
+      <button class="close-btn btn" id="close-discord-modal">Close</button>
     </div>
   </div>
 
   <div id="friends-modal" class="modal-overlay">
     <div class="modal-content">
-      <h3>Check Out Our Good Friend Ronixx!</h3>
-      <p>Not only do we have SkizzenHub, but our good friend Ronixx is also making some amazing scripts! 💻 If you're looking for even more options to enhance your experience, you should definitely check out his work. He’s known for creating high-quality, powerful scripts that can take your gameplay to the next level.</p>
-      <!-- Added Button -->
-      <button class="discord-btn" onclick="window.open('https://discord.gg/7MtYZ4pS','_blank')">Join Friends Discord</button>
-      <button class="close-btn" id="close-friends-modal">Close</button>
+      <h3><i class="fas fa-users"></i> Our Friend Ronixx!</h3>
+      <p>Besides SkizzenHub, our friend Ronixx creates amazing scripts! 💻 Check out his work for more options to enhance your gameplay!</p>
+      <button class="btn" onclick="window.open('https://discord.gg/7MtYZ4pS','_blank')">
+        <i class="fab fa-discord"></i> Ronixx Discord
+      </button>
+      <button class="close-btn btn" id="close-friends-modal">Close</button>
     </div>
   </div>
 
   <div id="features-modal" class="modal-overlay">
     <div class="modal-content">
-      <h3>SkizzenHub Features</h3>
-      <p>SkizzenHub offers some of the most powerful features for scripters:</p>
-      <ul style="text-align:left;">
-        <li>🔹 <strong>Instant Steal:</strong> Steal items faster than ever before.</li>
-        <li>🔹 <strong>TP Forward:</strong> Instantly teleport across the map!</li>
-        <li>🔹 <strong>Lagger:</strong> Disrupt your opponents with intense lag.</li>
+      <h3><i class="fas fa-rocket"></i> SkizzenHub Features</h3>
+      <p>SkizzenHub offers the most powerful features for scripters:</p>
+      <ul>
+        <li>🔹 <strong>Instant Steal:</strong> Steal items faster than ever</li>
+        <li>🔹 <strong>TP Forward:</strong> Instant teleport across the map!</li>
+        <li>🔹 <strong>Lagger:</strong> Disrupt opponents with intense lag</li>
       </ul>
-      <button class="close-btn" id="close-features-modal">Close</button>
+      <button class="close-btn btn" id="close-features-modal">Close</button>
+    </div>
+  </div>
+
+  <!-- Buy Script Modal -->
+  <div id="buy-script-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3><i class="fas fa-shopping-cart"></i> PRICES</h3>
+      
+      <div class="pricing-grid">
+        <div class="pricing-plan">
+          <h4>Lifetime Skizzen Hub</h4>
+          <div class="pricing-item">Garama 200M</div>
+          <div class="pricing-item">Cerberus Default</div>
+          <div class="pricing-item">Moby Default</div>
+          <div class="pricing-item">La secret 2+ or two traits</div>
+          <div class="pricing-item">Tang Tang Keletang 500M+</div>
+          <div class="pricing-item">Ginger Gerat Default</div>
+          <div class="pricing-item">Ketupat Kepat 450M+</div>
+          <div class="pricing-item">other rare stuff</div>
+        </div>
+        
+        <div class="pricing-plan">
+          <h4>One week Skizzen Hub</h4>
+          <div class="pricing-item">Garama Default</div>
+          <div class="pricing-item">Tang Tang Keletang 200M+</div>
+          <div class="pricing-item">Ketupat Kepat 150M+</div>
+          <div class="pricing-item">Tic Tac Sahur 150M+</div>
+          <div class="pricing-item">other rare stuff</div>
+        </div>
+      </div>
+      
+      <button class="close-btn btn" id="close-buy-script-modal">Close</button>
     </div>
   </div>
 
   <script>
-    // Open Modals
-    document.getElementById('discord-btn').addEventListener('click',()=>{document.getElementById('discord-modal').style.display='flex';});
-    document.getElementById('friends-btn').addEventListener('click',()=>{document.getElementById('friends-modal').style.display='flex';});
-    document.getElementById('features-btn').addEventListener('click',()=>{document.getElementById('features-modal').style.display='flex';});
-    document.getElementById('buy-script-btn').addEventListener('click',()=>{document.getElementById('buy-script-modal').style.display='flex';});
+    // Modal Controls
+    const modals = {
+      discord: ['discord-btn', 'discord-modal', 'close-discord-modal'],
+      friends: ['friends-btn', 'friends-modal', 'close-friends-modal'],
+      features: ['features-btn', 'features-modal', 'close-features-modal'],
+      buy: ['buy-script-btn', 'buy-script-modal', 'close-buy-script-modal']
+    };
 
-    // Close Modals
-    document.getElementById('close-discord-modal').addEventListener('click',()=>{document.getElementById('discord-modal').style.display='none';});
-    document.getElementById('close-friends-modal').addEventListener('click',()=>{document.getElementById('friends-modal').style.display='none';});
-    document.getElementById('close-features-modal').addEventListener('click',()=>{document.getElementById('features-modal').style.display='none';});
-    document.getElementById('close-buy-script-modal')?.addEventListener('click',()=>{document.getElementById('buy-script-modal').style.display='none';});
+    Object.entries(modals).forEach(([key, ids]) => {
+      const [openId, modalId, closeId] = ids;
+      
+      document.getElementById(openId).addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(modalId).style.display = 'flex';
+      });
+      
+      document.getElementById(closeId).addEventListener('click', () => {
+        document.getElementById(modalId).style.display = 'none';
+      });
+    });
+
+    // Close modals on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Smooth scroll effect
+    document.querySelector('.scroll-indicator').addEventListener('click', () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+
+    // Mouse trail effect
+    document.addEventListener('mousemove', (e) => {
+      const trail = document.createElement('div');
+      trail.style.cssText = `
+        position: fixed;
+        left: ${e.clientX}px;
+        top: ${e.clientY}px;
+        width: 6px;
+        height: 6px;
+        background: var(--primary-glow);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        animation: trailFade 0.6s ease-out forwards;
+      `;
+      document.body.appendChild(trail);
+      
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes trailFade {
+        to { opacity: 0; transform: scale(2) translateY(-20px); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
-
 </body>
 </html>

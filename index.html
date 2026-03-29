@@ -3,668 +3,929 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>SKIZZEN HUB | Instant Steal Script | Steal a Brainrot</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P:wght@400&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <title>SKIZZEN HUB | Premium Steal Script</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Share Tech Mono', monospace;
-      color: #e0e0ff;
-      background: #050505;
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      color: #ffffff;
       overflow-x: hidden;
+      line-height: 1.5;
     }
 
-    /* Background */
-    .cyber-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background: radial-gradient(ellipse at 20% 30%, #0a0a2a, #000000); }
-    .gradient-orb { position: fixed; width: 80vw; height: 80vw; background: radial-gradient(circle, rgba(170,78,255,0.25), transparent 70%); border-radius: 50%; top: -20%; right: -20%; z-index: -2; animation: orbMove 25s ease-in-out infinite; }
-    .gradient-orb2 { position: fixed; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0,255,200,0.15), transparent 70%); border-radius: 50%; bottom: -30%; left: -20%; z-index: -2; animation: orbMove2 30s ease-in-out infinite; }
-    @keyframes orbMove { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(8%,5%) scale(1.1); } }
-    @keyframes orbMove2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-5%,-8%) scale(1.2); } }
-
-    .grid-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-      background-image: linear-gradient(rgba(170,78,255,0.08) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(170,78,255,0.08) 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: gridShift 20s linear infinite;
+    /* Premium Animated Background */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(ellipse at 30% 40%, #1a0a2e, #0a0a0f);
     }
-    @keyframes gridShift { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
 
-    /* Particles */
-    .particles {
+    .bg-glow-1 {
+      position: fixed;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(138, 43, 226, 0.25), transparent 70%);
+      border-radius: 50%;
+      top: -20%;
+      left: -20%;
+      z-index: -1;
+      animation: floatGlow1 18s ease-in-out infinite;
+    }
+
+    .bg-glow-2 {
+      position: fixed;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.12), transparent 70%);
+      border-radius: 50%;
+      bottom: -15%;
+      right: -15%;
+      z-index: -1;
+      animation: floatGlow2 22s ease-in-out infinite;
+    }
+
+    .bg-glow-3 {
+      position: fixed;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(255, 0, 128, 0.1), transparent 70%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+
+    @keyframes floatGlow1 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+      50% { transform: translate(8%, 5%) scale(1.15); opacity: 1; }
+    }
+
+    @keyframes floatGlow2 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+      50% { transform: translate(-5%, -8%) scale(1.2); opacity: 0.8; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
+    }
+
+    /* Animated Grid */
+    .grid-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: 
+        linear-gradient(rgba(138, 43, 226, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(138, 43, 226, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridShift 30s linear infinite;
+    }
+
+    @keyframes gridShift {
+      0% { background-position: 0 0; }
+      100% { background-position: 50px 50px; }
+    }
+
+    /* Floating Particles */
+    .particles-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
+      overflow: hidden;
     }
+
     .particle {
       position: absolute;
-      background: radial-gradient(circle, #ff00b8 0%, #00f5ff 70%, transparent 100%);
+      background: rgba(138, 43, 226, 0.4);
       border-radius: 50%;
-      animation: floatParticle 25s linear infinite;
-      opacity: 0.6;
-      box-shadow: 0 0 20px #ff00b8;
-    }
-    @keyframes floatParticle {
-      0% { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.7; }
-      90% { opacity: 0.7; }
-      100% { transform: translateY(-100px) scale(1) rotate(180deg); opacity: 0; }
+      filter: blur(3px);
+      animation: particleFloat 20s linear infinite;
     }
 
-    /* Navigation */
-    nav {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      padding: 12px 30px; background: rgba(5,5,10,0.85); backdrop-filter: blur(20px);
-      border: 1px solid rgba(170,78,255,0.5); border-radius: 60px; z-index: 1000;
-      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% {
+        transform: translateY(-100px) translateX(50px) scale(1);
+        opacity: 0;
+      }
     }
-    nav a {
-      color: #fff; text-decoration: none; padding: 10px 20px; font-family: 'Orbitron', monospace;
-      font-weight: 700; font-size: 0.85rem; text-transform: uppercase; border-radius: 40px;
-      transition: all 0.4s; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-    }
-    nav a:hover { background: linear-gradient(95deg, #ff00b8, #00f5ff); color: #000; transform: translateY(-3px); }
-    .btn-nav { background: linear-gradient(95deg, #ff00b8, #aa4eff); color: #000 !important; }
 
-    /* Hero */
-    .hero {
-      min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 0 20px; position: relative;
-    }
-    .hero h1 {
-      font-family: 'Press Start 2P', cursive; font-size: clamp(2.8rem, 8vw, 5.5rem);
-      background: linear-gradient(135deg, #fff, #ff00b8, #00f5ff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 30px #ff00b8);
-      animation: glowPulse 2s ease-in-out infinite alternate;
-    }
-    @keyframes glowPulse {
-      from { filter: drop-shadow(0 0 20px #ff00b8); }
-      to { filter: drop-shadow(0 0 50px #00f5ff); }
-    }
-    .hero p { font-size: 1.4rem; margin-top: 10px; opacity: 0.9; }
-    .steal-counter {
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      border: 1px solid #ff00b8;
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      margin-top: 2rem;
+    /* Premium Navigation */
+    .premium-nav {
+      position: fixed;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(10, 10, 15, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 80px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      padding: 8px 24px;
+      display: flex;
+      gap: 12px;
       transition: all 0.3s ease;
     }
-    .steal-counter span {
-      color: #ff44aa;
-      font-size: 1.8rem;
-      font-weight: bold;
+
+    .premium-nav:hover {
+      border-color: rgba(138, 43, 226, 0.6);
+      box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+    }
+
+    .nav-link {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-family: 'Orbitron', monospace;
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border-radius: 60px;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .nav-link:hover::before {
+      left: 100%;
+    }
+
+    .nav-link:hover {
+      background: rgba(138, 43, 226, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn-premium {
+      background: linear-gradient(135deg, #8a2be2, #ff0080);
+      color: #fff !important;
+    }
+
+    .nav-btn-premium:hover {
+      background: linear-gradient(135deg, #9b3eef, #ff1a8c);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+    }
+
+    /* Hero Section */
+    .hero-premium {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .hero-badge {
+      background: rgba(138, 43, 226, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 60px;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      margin-bottom: 30px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff, #8a2be2, #ff0080);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.1s backwards;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: #a0a0b0;
+      max-width: 600px;
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    .steal-counter-premium {
+      background: rgba(10, 10, 20, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(138, 43, 226, 0.4);
+      border-radius: 80px;
+      padding: 16px 32px;
+      margin-top: 30px;
+      animation: fadeInUp 0.8s ease 0.3s backwards;
+      transition: all 0.3s ease;
+    }
+
+    .steal-counter-premium span {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #8a2be2, #ff0080);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       display: inline-block;
-      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
-    .counter-update {
-      animation: counterPop 0.5s ease-out;
+
+    .counter-animate {
+      animation: counterPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
+
     @keyframes counterPop {
-      0% { transform: scale(1); text-shadow: 0 0 0 #ff44aa; }
-      50% { transform: scale(1.3); text-shadow: 0 0 20px #ff44aa; color: #ff88ff; }
-      100% { transform: scale(1); text-shadow: 0 0 2px #ff44aa; }
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
     }
-    .scroll-indicator {
-      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-      color: #00f5ff; font-family: 'Orbitron', monospace; animation: bounce 2s infinite; cursor: pointer;
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    @keyframes bounce {
-      0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #8a2be2;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      animation: bounceHint 2s infinite;
+    }
+
+    @keyframes bounceHint {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
       40% { transform: translateX(-50%) translateY(-10px); }
       60% { transform: translateX(-50%) translateY(-5px); }
     }
 
-    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; position: relative; z-index: 2; }
-
-    .section-title {
-      font-family: 'Orbitron', monospace; font-size: 2.2rem; text-align: center;
-      margin: 4rem 0 2rem; background: linear-gradient(135deg, #ff00b8, #00f5ff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    /* Container */
+    .container-premium {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      position: relative;
+      z-index: 2;
     }
 
-    /* Features */
-    .features-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
     }
-    .feature-card {
-      background: rgba(8,8,18,0.7); border: 1px solid rgba(255,0,184,0.4);
-      border-radius: 24px; padding: 2rem; width: 280px; text-align: center;
-      transition: all 0.4s ease;
-    }
-    .feature-card:hover {
-      transform: translateY(-10px); border-color: #ff00b8; box-shadow: 0 20px 40px rgba(255,0,184,0.3);
-    }
-    .feature-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
 
-    /* Pricing Cards */
-    .pricing-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 2rem;
+    .section-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #8a2be2;
+      margin-bottom: 12px;
     }
-    .pricing-card {
-      background: rgba(8, 8, 18, 0.75);
+
+    .section-title-premium {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #8a2be2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Features Grid Premium */
+    .features-grid-premium {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .feature-card-premium {
+      background: rgba(15, 15, 25, 0.6);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 0, 184, 0.5);
+      border: 1px solid rgba(138, 43, 226, 0.2);
       border-radius: 28px;
-      padding: 2rem;
-      width: 380px;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      padding: 32px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
     }
-    .pricing-card:hover {
-      transform: translateY(-15px);
-      border-color: #00f5ff;
-      box-shadow: 0 25px 45px -15px rgba(0,245,255,0.4);
+
+    .feature-card-premium::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
     }
-    .lifetime {
+
+    .feature-card-premium:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card-premium:hover {
+      transform: translateY(-8px);
+      border-color: rgba(138, 43, 226, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon-premium {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-card-premium h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card-premium p {
+      color: #a0a0b0;
+      line-height: 1.6;
+    }
+
+    /* Pricing Cards Premium */
+    .pricing-grid-premium {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .pricing-card-premium {
+      background: rgba(15, 15, 25, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 32px;
+      padding: 40px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+    }
+
+    .pricing-card-premium:hover {
+      transform: translateY(-12px);
+      border-color: rgba(138, 43, 226, 0.7);
+      box-shadow: 0 30px 50px rgba(138, 43, 226, 0.2);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      right: 30px;
+      background: linear-gradient(135deg, #8a2be2, #ff0080);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .pricing-header {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .lifetime-premium {
       background: linear-gradient(135deg, #ffaa44, #ff44aa);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      font-size: 1.8rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 1.5rem;
     }
-    .week {
+
+    .week-premium {
       background: linear-gradient(135deg, #44ffaa, #00f5ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      font-size: 1.8rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .items-list {
-      text-align: left;
-      margin: 1.5rem 0;
-      line-height: 1.75;
-      font-size: 0.95rem;
-      color: #ddd;
-    }
-    .buy-btn {
-      background: linear-gradient(95deg, #ff00b8, #aa4eff);
-      color: #000;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      padding: 14px 32px;
-      border: none;
-      border-radius: 60px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 1.5rem;
-      transition: all 0.3s;
-    }
-    .buy-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 10px 30px rgba(255,0,184,0.5);
     }
 
-    /* Modals - Beautiful with animation */
-    .modal-overlay {
+    .items-list-premium {
+      margin: 25px 0;
+    }
+
+    .item-premium {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(138, 43, 226, 0.15);
+      font-size: 0.9rem;
+    }
+
+    .item-name {
+      font-weight: 500;
+    }
+
+    .item-value {
+      color: #8a2be2;
+      font-weight: 600;
+    }
+
+    .btn-premium {
+      width: 100%;
+      background: linear-gradient(135deg, #8a2be2, #ff0080);
+      border: none;
+      padding: 16px;
+      border-radius: 60px;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+    }
+
+    /* Modal Styles Premium */
+    .modal-premium {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(12px);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
       justify-content: center;
       align-items: center;
       z-index: 2000;
     }
-    .modal-content {
-      background: linear-gradient(145deg, #0f0f1f, #1a0033);
-      border: 2px solid transparent;
-      border-image: linear-gradient(135deg, #ff00b8, #00f5ff) 1;
-      border-radius: 28px;
-      padding: 2.5rem 2rem;
+
+    .modal-content-premium {
+      background: linear-gradient(145deg, #111120, #0a0a15);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      border-radius: 40px;
+      padding: 40px;
       max-width: 520px;
-      width: 92%;
+      width: 90%;
       text-align: center;
-      box-shadow: 0 0 60px rgba(255, 0, 184, 0.5);
-      animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      opacity: 0;
-      transform: scale(0.6) translateY(50px);
+      position: relative;
+      box-shadow: 0 0 80px rgba(138, 43, 226, 0.3);
+      animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    @keyframes modalPop {
-      to { opacity: 1; transform: scale(1) translateY(0); }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
-    .modal-content h3 {
+
+    .modal-content-premium h3 {
       font-family: 'Orbitron', monospace;
-      font-size: 2rem;
-      margin-bottom: 1.2rem;
-      background: linear-gradient(90deg, #ff00b8, #00f5ff);
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #fff, #8a2be2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
     }
-    .modal-content p {
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-    .modal-content ul {
-      text-align: left;
-      margin: 1rem 0;
-      padding-left: 1.5rem;
-    }
-    .modal-content li {
-      margin: 0.5rem 0;
-    }
-    .btn {
-      background: linear-gradient(95deg, #ff00b8, #aa4eff);
-      color: #000;
-      font-weight: 700;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      margin: 8px;
-      font-family: 'Orbitron', monospace;
-      transition: all 0.3s;
-    }
-    .btn:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 30px rgba(255,0,184,0.5); }
-    .close-btn {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    .close-btn:hover { background: rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
 
-    /* Support options inside modal */
-    .support-options {
+    .support-options-premium {
       display: flex;
+      gap: 16px;
+      margin: 24px 0;
       flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin: 1.5rem 0;
     }
-    .support-card {
-      background: rgba(255,0,184,0.1);
-      border: 1px solid rgba(255,0,184,0.3);
-      border-radius: 20px;
-      padding: 1.2rem;
+
+    .support-card-premium {
       flex: 1;
-      min-width: 180px;
+      background: rgba(138, 43, 226, 0.1);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 24px;
+      padding: 20px;
       cursor: pointer;
       transition: all 0.3s;
     }
-    .support-card:hover {
-      transform: translateY(-5px);
-      border-color: #ff00b8;
-      background: rgba(255,0,184,0.2);
-      box-shadow: 0 10px 25px rgba(255,0,184,0.3);
-    }
-    .support-card i {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      color: #ff00b8;
-    }
-    .support-card h4 { font-size: 1.1rem; margin-bottom: 0.3rem; color: #fff; }
-    .support-card p { font-size: 0.8rem; opacity: 0.8; margin-bottom: 0; }
 
-    footer {
-      padding: 3rem 2rem;
-      text-align: center;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255,0,184,0.3);
-      margin-top: 3rem;
+    .support-card-premium:hover {
+      transform: translateY(-5px);
+      border-color: #8a2be2;
+      background: rgba(138, 43, 226, 0.2);
     }
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .social-icons a {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, #ff00b8, #aa4eff);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
-      color: #000;
+
+    .btn-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 40px;
       cursor: pointer;
+      transition: all 0.3s;
     }
-    .social-icons a:hover {
-      transform: translateY(-5px) scale(1.1);
-      box-shadow: 0 0 25px #ff00b8;
+
+    /* Footer */
+    .footer-premium {
+      padding: 60px 24px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(138, 43, 226, 0.2);
+      background: rgba(0, 0, 0, 0.4);
     }
 
     @media (max-width: 768px) {
-      nav { padding: 8px 16px; gap: 5px; }
-      nav a { padding: 6px 12px; font-size: 0.7rem; }
-      .pricing-card { width: 100%; max-width: 360px; }
-      .support-options { flex-direction: column; }
+      .premium-nav {
+        padding: 6px 16px;
+        gap: 6px;
+      }
+      .nav-link {
+        padding: 8px 14px;
+        font-size: 0.7rem;
+      }
+      .pricing-grid-premium {
+        grid-template-columns: 1fr;
+      }
+      .features-grid-premium {
+        grid-template-columns: 1fr;
+      }
+      .support-options-premium {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="cyber-bg"></div>
-<div class="gradient-orb"></div>
-<div class="gradient-orb2"></div>
-<div class="grid-overlay"></div>
+<div class="bg-gradient"></div>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+<div class="bg-glow-3"></div>
+<div class="grid-pattern"></div>
 
-<!-- Particles -->
-<div class="particles">
-  <div class="particle" style="width: 60px; height: 60px; left: 10%; animation-duration: 30s;"></div>
-  <div class="particle" style="width: 40px; height: 40px; left: 25%; animation-duration: 35s; animation-delay: -7s;"></div>
-  <div class="particle" style="width: 50px; height: 50px; left: 70%; animation-duration: 28s; animation-delay: -12s;"></div>
-  <div class="particle" style="width: 30px; height: 30px; left: 85%; animation-duration: 32s; animation-delay: -18s;"></div>
-  <div class="particle" style="width: 45px; height: 45px; left: 45%; animation-duration: 33s; animation-delay: -22s;"></div>
-</div>
+<div class="particles-container" id="particles"></div>
 
-<nav>
-  <a href="#" id="discord-btn"><i class="fab fa-discord"></i> Discord</a>
-  <a href="#" id="friends-btn"><i class="fas fa-users"></i> Friends</a>
-  <a href="#" id="features-nav-btn"><i class="fas fa-rocket"></i> Features</a>
-  <a href="#" id="support-nav-btn"><i class="fas fa-headset"></i> Support</a>
-  <a href="#" id="changelog-nav-btn"><i class="fas fa-code-branch"></i> Changelog</a>
-  <a href="#" id="buy-script-btn" class="btn-nav"><i class="fas fa-shopping-cart"></i> Buy Script</a>
+<nav class="premium-nav">
+  <a href="#" class="nav-link" id="nav-discord"><i class="fab fa-discord"></i> Discord</a>
+  <a href="#" class="nav-link" id="nav-friends"><i class="fas fa-users"></i> Friends</a>
+  <a href="#" class="nav-link" id="nav-features"><i class="fas fa-rocket"></i> Features</a>
+  <a href="#" class="nav-link" id="nav-support"><i class="fas fa-headset"></i> Support</a>
+  <a href="#" class="nav-link" id="nav-changelog"><i class="fas fa-code-branch"></i> Changelog</a>
+  <a href="#" class="nav-link nav-btn-premium" id="nav-buy"><i class="fas fa-shopping-cart"></i> Buy</a>
 </nav>
 
-<section class="hero">
-  <h1>SKIZZEN HUB</h1>
-  <p>Best Instant Steal Script for Steal a Brainrot</p>
-  <div class="steal-counter">
-    📊 LIVE STEAL BOARD: <span id="stolenCounter">0</span>
+<section class="hero-premium">
+  <div class="hero-badge">
+    <i class="fas fa-bolt"></i> PREMIUM INSTANT STEAL SCRIPT
   </div>
-  <div class="scroll-indicator">↓ SCROLL ↓</div>
+  <h1 class="hero-title">SKIZZEN HUB</h1>
+  <p class="hero-subtitle">The most powerful instant steal script for Steal a Brainrot</p>
+  <div class="steal-counter-premium">
+    📊 LIVE STEAL BOARD: <span id="liveCounter">0</span>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
 </section>
 
-<div class="container">
-  <!-- Features -->
-  <h2 class="section-title">⚡ CORE FEATURES ⚡</h2>
-  <div class="features-grid">
-    <div class="feature-card"><div class="feature-icon">⚡</div><h3>Instant Steal</h3><p>Steal in 0.1 sec</p></div>
-    <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Anti-Ban Shield</h3><p>HWID Spoofer + Bypass</p></div>
-    <div class="feature-card"><div class="feature-icon">🎯</div><h3>Auto-Target</h3><p>Rare Items Priority</p></div>
-    <div class="feature-card"><div class="feature-icon">🚀</div><h3>TP Forward</h3><p>Instant Teleport</p></div>
-    <div class="feature-card"><div class="feature-icon">🎮</div><h3>Auto Grab</h3><p>Automatic Grabbing</p></div>
-    <div class="feature-card"><div class="feature-icon">⚔️</div><h3>Duels Tab</h3><p>Auto Play Duels</p></div>
+<div class="container-premium">
+  <div class="section-header">
+    <div class="section-tag">PREMIUM FEATURES</div>
+    <h2 class="section-title-premium">Next-Generation Steal Technology</h2>
   </div>
 
-  <!-- Prices -->
-  <h2 class="section-title">💰 PRICES 💰</h2>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <div class="lifetime">✦ LIFETIME ACCESS ✦</div>
-      <div class="items-list">
-        <strong>Payment with in-game items:</strong><br><br>
-        • Garama — 200M<br>
-        • Cerberus — Default<br>
-        • Moby — Default<br>
-        • La Secret — 2+ or two traits<br>
-        • Tang Tang Keletang — 500M+<br>
-        • Ginger Gerat — Default<br>
-        • Ketupat Kepat — 450M+<br>
-        • Other rare stuff
+  <div class="features-grid-premium">
+    <div class="feature-card-premium">
+      <div class="feature-icon-premium">⚡</div>
+      <h3>Instant Steal</h3>
+      <p>Lightning-fast steal algorithm with 0.1 second delay. Outspeed every other script.</p>
+    </div>
+    <div class="feature-card-premium">
+      <div class="feature-icon-premium">🛡️</div>
+      <h3>Anti-Ban Shield</h3>
+      <p>Advanced HWID spoofer and detection bypass. Stay completely undetected.</p>
+    </div>
+    <div class="feature-card-premium">
+      <div class="feature-icon-premium">🎯</div>
+      <h3>Auto-Target</h3>
+      <p>Smart targeting system that prioritizes the rarest and most valuable items first.</p>
+    </div>
+    <div class="feature-card-premium">
+      <div class="feature-icon-premium">🚀</div>
+      <h3>TP Forward</h3>
+      <p>Instant teleportation across the entire map. Get to any location in milliseconds.</p>
+    </div>
+    <div class="feature-card-premium">
+      <div class="feature-icon-premium">🎮</div>
+      <h3>Auto Grab</h3>
+      <p>Fully automated item grabbing system. Works 24/7 without interruption.</p>
+    </div>
+    <div class="feature-card-premium">
+      <div class="feature-icon-premium">⚔️</div>
+      <h3>Duels Tab</h3>
+      <p>Automated duel gameplay. Win duels effortlessly with smart AI.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-tag">PRICING</div>
+    <h2 class="section-title-premium">Choose Your Access</h2>
+  </div>
+
+  <div class="pricing-grid-premium">
+    <div class="pricing-card-premium">
+      <div class="pricing-badge">BEST VALUE</div>
+      <div class="pricing-header lifetime-premium">✦ LIFETIME ✦</div>
+      <div class="items-list-premium">
+        <div class="item-premium"><span class="item-name">Garama</span><span class="item-value">200M</span></div>
+        <div class="item-premium"><span class="item-name">Cerberus</span><span class="item-value">Default</span></div>
+        <div class="item-premium"><span class="item-name">Moby</span><span class="item-value">Default</span></div>
+        <div class="item-premium"><span class="item-name">La Secret</span><span class="item-value">2+ traits</span></div>
+        <div class="item-premium"><span class="item-name">Tang Tang Keletang</span><span class="item-value">500M+</span></div>
+        <div class="item-premium"><span class="item-name">Ginger Gerat</span><span class="item-value">Default</span></div>
+        <div class="item-premium"><span class="item-name">Ketupat Kepat</span><span class="item-value">450M+</span></div>
+        <div class="item-premium"><span class="item-name">Other rare stuff</span><span class="item-value">Any rare</span></div>
       </div>
-      <button class="buy-btn" data-plan="lifetime">BUY LIFETIME →</button>
+      <button class="btn-premium buy-lifetime">BUY LIFETIME →</button>
     </div>
 
-    <div class="pricing-card">
-      <div class="week">✦ ONE WEEK ACCESS ✦</div>
-      <div class="items-list">
-        <strong>Payment with in-game items:</strong><br><br>
-        • Garama — Default<br>
-        • La Secret — Default<br>
-        • Tang Tang Keletang — 200M+<br>
-        • Ketupat Kepat — 150M+<br>
-        • Tic Tac Sahur — 150M+<br>
-        • Other rare stuff (negotiable)
+    <div class="pricing-card-premium">
+      <div class="pricing-badge">POPULAR</div>
+      <div class="pricing-header week-premium">✦ ONE WEEK ✦</div>
+      <div class="items-list-premium">
+        <div class="item-premium"><span class="item-name">Garama</span><span class="item-value">Default</span></div>
+        <div class="item-premium"><span class="item-name">La Secret</span><span class="item-value">Default</span></div>
+        <div class="item-premium"><span class="item-name">Tang Tang Keletang</span><span class="item-value">200M+</span></div>
+        <div class="item-premium"><span class="item-name">Ketupat Kepat</span><span class="item-value">150M+</span></div>
+        <div class="item-premium"><span class="item-name">Tic Tac Sahur</span><span class="item-value">150M+</span></div>
+        <div class="item-premium"><span class="item-name">Other rare stuff</span><span class="item-value">Negotiable</span></div>
       </div>
-      <button class="buy-btn" data-plan="week">BUY 1 WEEK →</button>
+      <button class="btn-premium buy-week">BUY 1 WEEK →</button>
     </div>
   </div>
 </div>
 
-<footer>
-  <p>© 2026 SkizzenHub — Best Instant Steal Script for Steal a Brainrot</p>
-  <p style="font-size:0.8rem; margin-top:0.5rem;">Payment with in-game items only</p>
-  <div class="social-icons">
-    <a id="footer-discord"><i class="fab fa-discord"></i></a>
-  </div>
+<footer class="footer-premium">
+  <p>© 2026 SkizzenHub — Premium Instant Steal Script for Steal a Brainrot</p>
+  <p style="font-size: 0.8rem; margin-top: 12px; opacity: 0.6;">Payment with in-game items only</p>
 </footer>
 
-<!-- ====================== MODALS ====================== -->
-
-<!-- Discord Modal -->
-<div id="discord-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3><i class="fab fa-discord"></i> Join Our Discord!</h3>
-    <p>Meet fellow scripters, share experiences and get support. SkizzenHub Discord is where creativity meets collaboration! 🚀</p>
-    <button class="btn" id="discord-join-btn"><i class="fab fa-discord"></i> Join Discord</button>
-    <button class="close-btn btn" id="close-discord-modal">Close</button>
+<!-- Modals -->
+<div id="modal-discord" class="modal-premium">
+  <div class="modal-content-premium">
+    <h3><i class="fab fa-discord"></i> Join Discord</h3>
+    <p>Meet fellow scripters and get instant support. Join our community today!</p>
+    <button class="btn-premium" id="join-discord" style="width: auto; padding: 12px 32px;">Join Discord →</button>
+    <button class="btn-close close-modal" style="margin-top: 16px;">Close</button>
   </div>
 </div>
 
-<!-- Friends Modal -->
-<div id="friends-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3><i class="fas fa-users"></i> Our Friend Ronixx!</h3>
-    <p>Besides SkizzenHub, our friend Ronixx creates amazing scripts! 💻 Check out his work for more options to enhance your gameplay!</p>
-    <button class="btn" id="friends-join-btn"><i class="fab fa-discord"></i> Ronixx Discord</button>
-    <button class="close-btn btn" id="close-friends-modal">Close</button>
+<div id="modal-friends" class="modal-premium">
+  <div class="modal-content-premium">
+    <h3><i class="fas fa-users"></i> Ronixx Hub</h3>
+    <p>Check out our friend Ronixx! He creates amazing scripts as well.</p>
+    <button class="btn-premium" id="join-ronixx" style="width: auto; padding: 12px 32px;">Visit Ronixx →</button>
+    <button class="btn-close close-modal" style="margin-top: 16px;">Close</button>
   </div>
 </div>
 
-<!-- Features Modal -->
-<div id="features-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3><i class="fas fa-rocket"></i> Core Features</h3>
-    <p><strong>SkizzenHub offers the most powerful features:</strong></p>
-    <ul style="text-align:left;">
-      <li><strong>Instant Steal</strong> — Steal in 0.1 sec</li>
-      <li><strong>Anti-Ban Shield</strong> — HWID Spoofer + Detection Bypass</li>
-      <li><strong>Auto-Target</strong> — Rare Items Priority</li>
-      <li><strong>TP Forward</strong> — Instant Teleport across the map</li>
-      <li><strong>Auto Grab</strong> — Automatic Item Grabbing System</li>
-      <li><strong>Duels Tab</strong> — Auto Play in Duels</li>
-      <li><strong>Lagger</strong> — Disrupt opponents with intense lag</li>
-      <li><strong>Auto Farm Mode</strong> — 24/7 automatic stealing</li>
+<div id="modal-features" class="modal-premium">
+  <div class="modal-content-premium">
+    <h3><i class="fas fa-rocket"></i> All Features</h3>
+    <ul style="text-align: left; margin: 20px 0;">
+      <li>⚡ Instant Steal (0.1s delay)</li>
+      <li>🛡️ Anti-Ban Shield + HWID Spoofer</li>
+      <li>🎯 Smart Auto-Target (Rare priority)</li>
+      <li>🚀 TP Forward (Instant teleport)</li>
+      <li>🎮 Auto Grab (24/7 farming)</li>
+      <li>⚔️ Duels Tab (Auto win duels)</li>
     </ul>
-    <button class="close-btn btn" id="close-features-modal">Close</button>
+    <button class="btn-close close-modal">Close</button>
   </div>
 </div>
 
-<!-- Support Modal (with two options) -->
-<div id="support-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3><i class="fas fa-headset"></i> Support Center</h3>
-    <p>Choose how you want to contact support:</p>
-    <div class="support-options">
-      <div class="support-card" id="support-dm-card">
-        <i class="fab fa-discord"></i>
+<div id="modal-support" class="modal-premium">
+  <div class="modal-content-premium">
+    <h3><i class="fas fa-headset"></i> Support</h3>
+    <div class="support-options-premium">
+      <div class="support-card-premium" id="support-dm">
+        <i class="fab fa-discord" style="font-size: 2rem;"></i>
         <h4>Direct Message</h4>
         <p>@skizzen_cool</p>
-        <p style="font-size:0.7rem;">DM me on Discord</p>
       </div>
-      <div class="support-card" id="support-server-card">
-        <i class="fas fa-users"></i>
+      <div class="support-card-premium" id="support-server">
+        <i class="fas fa-users" style="font-size: 2rem;"></i>
         <h4>Discord Server</h4>
-        <p>Join Support Channel</p>
-        <p style="font-size:0.7rem;">Get help in our server</p>
+        <p>Join support channel</p>
       </div>
     </div>
-    <button class="close-btn btn" id="close-support-modal">Close</button>
+    <button class="btn-close close-modal">Close</button>
   </div>
 </div>
 
-<!-- Changelog Modal -->
-<div id="changelog-modal" class="modal-overlay">
-  <div class="modal-content">
+<div id="modal-changelog" class="modal-premium">
+  <div class="modal-content-premium">
     <h3><i class="fas fa-code-branch"></i> Changelog v3.0</h3>
-    <p><strong>A new whole script made perfectly new from scratch, with more than 10+ new features added such as:</strong></p>
-    <ul style="text-align:left;">
-      <li>✨ <strong>Auto Grab</strong> — Automatic item grabbing system</li>
-      <li>⚔️ <strong>Duels Tab</strong> — Auto play duel mode</li>
-      <li>🎯 <strong>Enhanced Auto-Target</strong> — Better priority system</li>
-      <li>🛡️ <strong>Improved Anti-Ban</strong> — Stronger protection</li>
-      <li>⚡ <strong>Faster Steal Algorithm</strong> — 0.1s delay</li>
-      <li>🚀 <strong>TP Forward v2</strong> — More stable teleportation</li>
-      <li>🎮 <strong>Auto Farm Mode</strong> — 24/7 automatic stealing</li>
-      <li>💎 <strong>Rare Item Priority</strong> — Steals rarest items first</li>
-      <li>🔧 <strong>Performance Optimization</strong> — 40% less resource usage</li>
-      <li>📊 <strong>Live Statistics</strong> — Real-time steal counter</li>
+    <p style="margin: 16px 0;"><strong>Brand new script from scratch with 10+ new features:</strong></p>
+    <ul style="text-align: left; margin: 16px 0;">
+      <li>✨ Auto Grab system</li>
+      <li>⚔️ Duels Tab with auto-play</li>
+      <li>🎯 Enhanced targeting</li>
+      <li>🛡️ Improved anti-ban</li>
+      <li>⚡ 0.1s steal delay</li>
+      <li>🚀 TP Forward v2</li>
     </ul>
-    <button class="close-btn btn" id="close-changelog-modal">Close</button>
+    <button class="btn-close close-modal">Close</button>
   </div>
 </div>
 
-<!-- Buy Script Modal -->
-<div id="buy-script-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3><i class="fas fa-shopping-cart"></i> Buy Script</h3>
-    <p>Payment is done with in-game items only.</p>
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0;">
-      <div style="flex:1; background: rgba(255,0,184,0.1); padding: 1rem; border-radius: 20px;">
-        <h4 style="color:#ff44aa;">✦ LIFETIME</h4>
-        <div>Garama 200M</div><div>Cerberus Default</div><div>Moby Default</div>
-        <div>La Secret 2+ traits</div><div>Tang Tang 500M+</div><div>+ other rares</div>
+<div id="modal-buy" class="modal-premium">
+  <div class="modal-content-premium">
+    <h3><i class="fas fa-shopping-cart"></i> Purchase</h3>
+    <p>Payment with in-game items only.</p>
+    <div style="display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap;">
+      <div style="flex: 1; background: rgba(138,43,226,0.1); padding: 16px; border-radius: 20px;">
+        <h4 style="color: #ff44aa;">LIFETIME</h4>
+        <p>Garama 200M<br>Cerberus Default<br>Moby Default<br>+ other rares</p>
       </div>
-      <div style="flex:1; background: rgba(0,245,255,0.1); padding: 1rem; border-radius: 20px;">
-        <h4 style="color:#00f5ff;">✦ ONE WEEK</h4>
-        <div>Garama Default</div><div>La Secret Default</div>
-        <div>Tang Tang 200M+</div><div>Ketupat Kepat 150M+</div><div>Tic Tac Sahur 150M+</div>
+      <div style="flex: 1; background: rgba(0,245,255,0.1); padding: 16px; border-radius: 20px;">
+        <h4 style="color: #00f5ff;">ONE WEEK</h4>
+        <p>Garama Default<br>La Secret Default<br>Tang Tang 200M+<br>+ other rares</p>
       </div>
     </div>
-    <p>📩 After payment, DM <strong>@skizzen_cool</strong> on Discord with proof to get your key.</p>
-    <button class="close-btn btn" id="close-buy-script-modal">Close</button>
+    <p>📩 DM <strong>@skizzen_cool</strong> on Discord with proof</p>
+    <button class="btn-close close-modal" style="margin-top: 16px;">Close</button>
   </div>
 </div>
 
 <script>
-// Live Steal Board - starts at 0 and increases VERY RARELY and SLOWLY
-let stolenCount = 0;
-const counterEl = document.getElementById('stolenCounter');
+// Live counter starting from 0
+let counterValue = 0;
+const counterElement = document.getElementById('liveCounter');
 
-// Function to update counter with animation
-function updateCounter(newValue) {
-  if (counterEl) {
-    counterEl.classList.add('counter-update');
-    counterEl.innerText = newValue.toLocaleString();
+function updateCounter() {
+  if (counterElement) {
+    counterElement.classList.add('counter-animate');
+    counterElement.innerText = counterValue.toLocaleString();
     setTimeout(() => {
-      counterEl.classList.remove('counter-update');
-    }, 500);
+      counterElement.classList.remove('counter-animate');
+    }, 400);
   }
 }
 
-// VERY RARE updates - random interval between 45 and 120 seconds
 function scheduleRareUpdate() {
   const minDelay = 45000;
   const maxDelay = 120000;
   const delay = Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
-  
   setTimeout(() => {
     const increase = Math.floor(Math.random() * 3) + 1;
-    stolenCount += increase;
-    updateCounter(stolenCount);
+    counterValue += increase;
+    updateCounter();
     scheduleRareUpdate();
   }, delay);
 }
 
-// Even more rare bigger updates (3-8 minutes)
-function scheduleRareBigUpdate() {
+function scheduleRarerUpdate() {
   const minDelay = 180000;
   const maxDelay = 480000;
   const delay = Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
-  
   setTimeout(() => {
     const increase = Math.floor(Math.random() * 4) + 5;
-    stolenCount += increase;
-    updateCounter(stolenCount);
-    scheduleRareBigUpdate();
+    counterValue += increase;
+    updateCounter();
+    scheduleRarerUpdate();
   }, delay);
 }
 
-// Start counters
 scheduleRareUpdate();
-scheduleRareBigUpdate();
+scheduleRarerUpdate();
 
-// Close all modals function
-function closeAllModals() {
-  document.querySelectorAll('.modal-overlay').forEach(modal => modal.style.display = 'none');
+// Particles generation
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
+  const size = Math.random() * 6 + 2;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.animationDelay = Math.random() * 20 + 's';
+  particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+  particlesContainer.appendChild(particle);
 }
 
-// Open modal function
+// Modal functions
+function closeAllModals() {
+  document.querySelectorAll('.modal-premium').forEach(modal => {
+    modal.style.display = 'none';
+  });
+}
+
 function openModal(modalId) {
   closeAllModals();
   const modal = document.getElementById(modalId);
   if (modal) modal.style.display = 'flex';
 }
 
-// Modal button mappings
-document.addEventListener('DOMContentLoaded', () => {
-  // Navigation buttons
-  document.getElementById('discord-btn')?.addEventListener('click', (e) => { e.preventDefault(); openModal('discord-modal'); });
-  document.getElementById('friends-btn')?.addEventListener('click', (e) => { e.preventDefault(); openModal('friends-modal'); });
-  document.getElementById('features-nav-btn')?.addEventListener('click', (e) => { e.preventDefault(); openModal('features-modal'); });
-  document.getElementById('support-nav-btn')?.addEventListener('click', (e) => { e.preventDefault(); openModal('support-modal'); });
-  document.getElementById('changelog-nav-btn')?.addEventListener('click', (e) => { e.preventDefault(); openModal('changelog-modal'); });
-  document.getElementById('buy-script-btn')?.addEventListener('click', (e) => { e.preventDefault(); openModal('buy-script-modal'); });
-  document.getElementById('footer-discord')?.addEventListener('click', () => openModal('discord-modal'));
-  
-  // Buy buttons on cards
-  document.querySelectorAll('.buy-btn').forEach(btn => {
-    btn.addEventListener('click', () => openModal('buy-script-modal'));
-  });
-  
-  // Discord join button - UPDATED LINK
-  document.getElementById('discord-join-btn')?.addEventListener('click', () => {
-    window.open('https://discord.gg/CuZhHyMe3', '_blank');
-  });
-  
-  // Friends join button - UPDATED LINK
-  document.getElementById('friends-join-btn')?.addEventListener('click', () => {
-    window.open('https://discord.gg/zPRvANK5B', '_blank');
-  });
-  
-  // Support DM card - copy discord username
-  document.getElementById('support-dm-card')?.addEventListener('click', () => {
-    navigator.clipboard.writeText('@skizzen_cool');
-    const toast = document.createElement('div');
-    toast.innerText = '✅ Copied: @skizzen_cool';
-    toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#ff00b8; color:#000; padding:10px 20px; border-radius:40px; z-index:3000; font-weight:bold; font-family:monospace;';
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
-  });
-  
-  // Support Server card - open discord server (UPDATED LINK)
-  document.getElementById('support-server-card')?.addEventListener('click', () => {
-    window.open('https://discord.gg/CuZhHyMe3', '_blank');
-  });
-  
-  // Close buttons
-  const closeButtons = ['close-discord-modal', 'close-friends-modal', 'close-features-modal', 'close-support-modal', 'close-changelog-modal', 'close-buy-script-modal'];
-  closeButtons.forEach(id => {
-    document.getElementById(id)?.addEventListener('click', closeAllModals);
-  });
-  
-  // Close modals on overlay click
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeAllModals();
-    });
-  });
-  
-  // Scroll indicator
-  document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
-    document.querySelector('.container')?.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-</script>
+// Navigation
+document.getElementById('nav-discord').onclick = (e) => { e.preventDefault(); openModal('modal-discord'); };
+document.getElementById('nav-friends').onclick = (e) => { e.preventDefault(); openModal('modal-friends'); };
+document.getElementById('nav-features').onclick = (e) => { e.preventDefault(); openModal('modal-features'); };
+document.getElementById('nav-support').onclick = (e) => { e.preventDefault(); openModal('modal-support'); };
+document.getElementById('nav-changelog').onclick = (e) => { e.preventDefault(); openModal('modal-changelog'); };
+document.getElementById('nav-buy').onclick = (e) => { e.preventDefault(); openModal('modal-buy'); };
 
+// Buy buttons
+document.querySelectorAll('.buy-lifetime, .buy-week').forEach(btn => {
+  btn.onclick = () => openModal('modal-buy');
+});
+
+// Discord links
+document.getElementById('join-discord').onclick = () => window.open('https://discord.gg/CuZhHyMe3', '_blank');
+document.getElementById('join-ronixx').onclick = () => window.open('https://discord.gg/zPRvANK5B', '_blank');
+
+// Support options
+document.getElementById('support-dm').onclick = () => {
+  navigator.clipboard.writeText('@skizzen_cool');
+  const toast = document.createElement('div');
+  toast.innerText = '✅ Copied: @skizzen_cool';
+  toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#8a2be2;color:#fff;padding:12px 24px;border-radius:40px;z-index:3000;font-weight:bold;';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+};
+document.getElementById('support-server').onclick = () => window.open('https://discord.gg/CuZhHyMe3', '_blank');
+
+// Close buttons
+document.querySelectorAll('.close-modal').forEach(btn => {
+  btn.onclick = closeAllModals;
+});
+
+// Close on overlay click
+document.querySelectorAll('.modal-premium').forEach(modal => {
+  modal.onclick = (e) => {
+    if (e.target === modal) closeAllModals();
+  };
+});
+
+// Scroll hint
+document.querySelector('.scroll-hint').onclick = () => {
+  document.querySelector('.container-premium').scrollIntoView({ behavior: 'smooth' });
+};
+</script>
 </body>
 </html>
